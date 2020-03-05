@@ -8,12 +8,13 @@ import org.bson.types.ObjectId;
 
 import com.noname.awn.enums.StatusType;
 import com.noname.awn.enums.TypeEnumSeat;
+import com.noname.awn.model.Devices;
 
 public class SeatsDTO extends BaseClassDTO {
 	
 	private ObjectId id_user;
 	private ObjectId id_licence;
-	private List<?> devices= new ArrayList<>();
+	private List<Devices> devices= new ArrayList<>();
 	private String name;
 	private String description;
 	private TypeEnumSeat type;
@@ -35,12 +36,6 @@ public class SeatsDTO extends BaseClassDTO {
 	}
 	public void setId_licence(ObjectId id_licence) {
 		this.id_licence = id_licence;
-	}
-	public List<?> getDevices() {
-		return devices;
-	}
-	public void setDevices(List<?> devices) {
-		this.devices = devices;
 	}
 	public String getName() {
 		return name;
@@ -95,6 +90,12 @@ public class SeatsDTO extends BaseClassDTO {
 	}
 	public void setStatus(StatusType status) {
 		this.status = status;
+	}
+	public List<Devices> getDevices() {
+		return devices;
+	}
+	public void setDevices(List<Devices> devices) {
+		this.devices = devices;
 	}
 	
 	

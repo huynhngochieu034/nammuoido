@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -11,10 +12,15 @@ import com.noname.awn.enums.TypeEnumSeat;
 
 @Document(collection = "Seats")
 public class Seats extends BaseClass {
-	
+	@DBRef
 	private Users users;
+	
+	@DBRef
 	private Licences licences;
-	private List<?> devices= new ArrayList<>();
+	
+	@DBRef
+	private List<Devices> devices= new ArrayList<>();
+	
 	private String name;
 	private String description;
 	private TypeEnumSeat type;
@@ -39,12 +45,6 @@ public class Seats extends BaseClass {
 		this.licences = licences;
 	}
 
-	public List<?> getDevices() {
-		return devices;
-	}
-	public void setDevices(List<?> devices) {
-		this.devices = devices;
-	}
 	public String getName() {
 		return name;
 	}
@@ -100,6 +100,12 @@ public class Seats extends BaseClass {
 	}
 	public void setStatus(StatusType status) {
 		this.status = status;
+	}
+	public List<Devices> getDevices() {
+		return devices;
+	}
+	public void setDevices(List<Devices> devices) {
+		this.devices = devices;
 	}	
 	
 }

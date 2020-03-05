@@ -2,6 +2,7 @@ package com.noname.awn.model;
 
 import java.util.Date;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -9,8 +10,9 @@ import com.noname.awn.enums.Documents.DocumentFileType;
 
 @Document(collection = "Documents")
 public class Documents extends BaseClass {
-
+	@DBRef
 	private Users user;
+	
 	private String name;
 	private String description;
 	private String metadata;

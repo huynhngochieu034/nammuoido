@@ -1,5 +1,6 @@
 package com.noname.awn.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -8,8 +9,10 @@ import com.noname.awn.enums.Notification.NotificationsType;
 
 @Document(collection = "Notifications")
 public class Notifications extends BaseClass {
-	
+	@DBRef
 	private Users user_sender;
+	
+	@DBRef
 	private Users user_receiver;
 	
 	private String title;

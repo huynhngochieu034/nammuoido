@@ -3,14 +3,16 @@ package com.noname.awn.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
 
 @Document(collection = "Parameters")
 public class Parameters extends BaseClass {
-
+	@DBRef
 	private Users users;
+	
 	private String name;
 	private String description;
 	private List<String> parameters = new ArrayList<>();

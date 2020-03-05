@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -13,33 +14,83 @@ import com.noname.awn.enums.Logs.LogsType;
 public class Logs {
 	@Id
 	public ObjectId _id;
+	
+	@DBRef
 	private Users users;
+	
+	@DBRef
 	private Status statuss;
+	
+	@DBRef
 	private Parameters parameters;
+	
+	@DBRef
 	private Sequences sequences;
+	
+	@DBRef
 	private Steps steps;
+	
+	@DBRef
 	private Infos infos;
+	
+	@DBRef
 	private Documents documents;
 	
+	@DBRef
+	private Operations operations;
+	
+	@DBRef
 	private Templates templates;
+	
+	@DBRef
 	private Abis abis;
+	
+	@DBRef
 	private Flows flows;
+	
+	@DBRef
 	private Notifications notifications;
+	
+	@DBRef
 	private Tasks tasks;
+	
+	@DBRef
 	private Subscriptions subscriptions;
+	
+	@DBRef
 	private Settings settings;
 	
+	@DBRef
 	private Customers customers;
+	
+	@DBRef
 	private Modules modules;
+	
+	@DBRef
 	private Presets presets;
+	
+	@DBRef
 	private Limits limits;
+	
+	@DBRef
 	private Certificators certificators;
+	
+	@DBRef
 	private Seats seats;
+	
+	@DBRef
 	private Devices devices;
 	
+	@DBRef
 	private Licences licences;
+	
+	@DBRef
 	private Notarizations notarizations;
+	
+	@DBRef
 	private Wallets wallets;
+	
+	@DBRef
 	private Payments payments;
 	
 	private String name;
@@ -325,6 +376,12 @@ public class Logs {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	public Operations getOperations() {
+		return operations;
+	}
+	public void setOperations(Operations operations) {
+		this.operations = operations;
 	}
 	private boolean verified;
 	private String notes;

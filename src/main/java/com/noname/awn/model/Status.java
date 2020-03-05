@@ -1,13 +1,15 @@
 package com.noname.awn.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
 
 @Document(collection = "Status")
 public class Status extends BaseClass {
-
-	private Logs logs;
+	@DBRef
+	private Logs logss;
+	
 	private String name;
 	private String description;
 	private String completed;
@@ -44,11 +46,11 @@ public class Status extends BaseClass {
 	public void setStatus(StatusType status) {
 		this.status = status;
 	}
-	public Logs getLogs() {
-		return logs;
+	public Logs getLogss() {
+		return logss;
 	}
-	public void setLogs(Logs logs) {
-		this.logs = logs;
+	public void setLogss(Logs logss) {
+		this.logss = logss;
 	}
 	
 	

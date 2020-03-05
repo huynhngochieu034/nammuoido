@@ -51,7 +51,7 @@ public class StatusController {
 	public Status updateWallets(@PathVariable("id") ObjectId id, @Valid @RequestBody StatusDTO statusDTO) {
 		Logs logs = logsRepository.findBy_id(statusDTO.getId_log());
 		Status status = statusConverter.convertToEntity(statusDTO);
-		status.setLogs(logs);
+		status.setLogss(logs);
 		status.set_id(id);
 		repository.save(status);
 		return status;
@@ -63,7 +63,7 @@ public class StatusController {
 		statusDTO.set_id(ObjectId.get());
 		Logs logs = logsRepository.findBy_id(statusDTO.getId_log());
 		Status status = statusConverter.convertToEntity(statusDTO);
-		status.setLogs(logs);
+		status.setLogss(logs);
 		repository.save(status);
 		return status;
 	}

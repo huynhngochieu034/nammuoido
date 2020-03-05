@@ -3,6 +3,7 @@ package com.noname.awn.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -10,7 +11,10 @@ import com.noname.awn.enums.StatusType;
 @Document(collection = "Templates")
 public class Templates extends BaseClass {
 	
+	@DBRef
 	private Users users;
+	
+	@DBRef
 	private Documents document;
 	
 	private String name;

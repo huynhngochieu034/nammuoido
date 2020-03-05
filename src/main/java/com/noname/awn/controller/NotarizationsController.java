@@ -73,7 +73,7 @@ public class NotarizationsController {
 		notarizations.setAbis(abis);
 		notarizations.setDocuments(documents);
 		notarizations.setOperations(operations);
-		notarizations.setLogs(logs);
+		notarizations.setLogss(logs);
 		abis.set_id(id);
 		repository.save(notarizations);
 		return notarizations;
@@ -91,7 +91,7 @@ public class NotarizationsController {
 		notarizations.setAbis(abis);
 		notarizations.setDocuments(documents);
 		notarizations.setOperations(operations);
-		notarizations.setLogs(logs);
+		notarizations.setLogss(logs);
 		repository.save(notarizations);
 		return notarizations;
 	}

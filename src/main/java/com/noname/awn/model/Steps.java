@@ -3,6 +3,7 @@ package com.noname.awn.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -10,8 +11,9 @@ import com.noname.awn.enums.TypeEnum;
 
 @Document(collection = "Steps")
 public class Steps extends BaseClass {	
-	
+	@DBRef
 	private Sequences sequences;
+	
 	private String name;
 	private String description;
 	private TypeEnum type;

@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.noname.awn.model.Logs;
+
 public class BaseClassDTO {
 
 	public ObjectId _id;
 	private boolean hidden;
 	private boolean verified;
 	private String notes;
-	private List<?> timeline = new ArrayList<>();
+	private List<Logs> logs = new ArrayList<>();
 	
 	public boolean isHidden() {
 		return hidden;
@@ -31,16 +33,16 @@ public class BaseClassDTO {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	public List<?> getTimeline() {
-		return timeline;
-	}
-	public void setTimeline(List<?> timeline) {
-		this.timeline = timeline;
-	}
 	public String get_id() {
 		return _id.toHexString();
 	}
 	public void set_id(ObjectId _id) {
 		this._id = _id;
+	}
+	public List<Logs> getLogs() {
+		return logs;
+	}
+	public void setLogs(List<Logs> logs) {
+		this.logs = logs;
 	}
 }

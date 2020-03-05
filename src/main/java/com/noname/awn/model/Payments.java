@@ -1,5 +1,6 @@
 package com.noname.awn.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -10,8 +11,9 @@ import com.noname.awn.enums.TypeEnumPaymentType;
 
 @Document(collection = "Payments")
 public class Payments extends BaseClass {
-
+	@DBRef
 	private Wallets wallets;
+	
 	private String id_transaction;
 	private TypeEnumPaymentType type;
 	private TypeEnumPaymentCycle cycle;

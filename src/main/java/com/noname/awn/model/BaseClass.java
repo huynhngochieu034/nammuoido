@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class BaseClass {
 	@Id
@@ -13,8 +14,16 @@ public class BaseClass {
 	private boolean hidden;
 	private boolean verified;
 	private String notes;
-	private List<?> timeline = new ArrayList<>();
 	
+	@DBRef
+	private List<Logs> logs = new ArrayList<>();
+	
+	public List<Logs> getLogs() {
+		return logs;
+	}
+	public void setLogs(List<Logs> logs) {
+		this.logs = logs;
+	}
 	public boolean isHidden() {
 		return hidden;
 	}
@@ -32,12 +41,6 @@ public class BaseClass {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
-	}
-	public List<?> getTimeline() {
-		return timeline;
-	}
-	public void setTimeline(List<?> timeline) {
-		this.timeline = timeline;
 	}
 	public String get_id() {
 		return _id.toHexString();

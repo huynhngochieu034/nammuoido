@@ -3,13 +3,16 @@ package com.noname.awn.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
 
 @Document(collection = "Flows")
 public class Flows extends BaseClass {
+	@DBRef
 	private Users user;
+	
 	private String name;
 	private String description;
 	private List<String> parameters = new ArrayList<>();

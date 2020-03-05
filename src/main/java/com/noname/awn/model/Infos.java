@@ -1,5 +1,6 @@
 package com.noname.awn.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.noname.awn.enums.StatusType;
@@ -7,8 +8,9 @@ import com.noname.awn.enums.Infos.InfosAttachType;
 
 @Document(collection = "Infos")
 public class Infos extends BaseClass {
-
+	@DBRef
 	private Users user;
+	
 	private String name;
 	private String description;
 	private String metadata;
