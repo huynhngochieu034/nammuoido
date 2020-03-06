@@ -1,7 +1,8 @@
-package com.noname.awn.security;
+package com.noname.awn.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,6 +20,7 @@ import com.noname.awn.security.jwt.AuthTokenFilter;
 import com.noname.awn.security.services.UserDetailsServiceImpl;
 
 @Configuration
+@ComponentScan(basePackages = "com.noname.awn")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
 		// securedEnabled = true,
@@ -58,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/**").permitAll()
+			.antMatchers("/api/users/**").access("hasRole('ADMIN')")
+//			.antMatchers("/api/abis/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

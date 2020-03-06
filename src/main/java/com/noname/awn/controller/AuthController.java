@@ -16,8 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +35,7 @@ import com.noname.awn.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(value = "/api/auth")
 public class AuthController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -77,7 +75,6 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		System.out.println("Toi day ko");
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
@@ -89,8 +86,6 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
-		
-		System.out.print("Toi day ko");
 
 		// Create new user's account
 		Users user = new Users();
@@ -99,30 +94,30 @@ public class AuthController {
 		Set<Roles> roles = new HashSet<>();
 
 		if (strRoles == null) {
-			Roles userRole = roleRepository.findByName(ERole.PERSON)
+			Roles userRole = roleRepository.findByName(ERole.ROLE_USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
-				case "operator":
-					Roles operatorRole = roleRepository.findByName(ERole.OPERATOR)
+				case "OPERATOR":
+					Roles operatorRole = roleRepository.findByName(ERole.ROLE_OPERATOR)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(operatorRole);
 					break;
-				case "company":
-					Roles companyRole = roleRepository.findByName(ERole.COMPANY)
+				case "COMPANY":
+					Roles companyRole = roleRepository.findByName(ERole.ROLE_COMPANY)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(companyRole);
 					break;
-				case "administrator":
-					Roles administratorRole = roleRepository.findByName(ERole.ADMINISTRATOR)
+				case "ADMIN":
+					Roles administratorRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(administratorRole);
 
 					break;
 				default:
-					Roles userRole = roleRepository.findByName(ERole.PERSON)
+					Roles userRole = roleRepository.findByName(ERole.ROLE_USER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
 				}
@@ -139,8 +134,4 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 	
-	@GetMapping("/{id}")
-	public Users getUsers(@PathVariable("id") ObjectId id) {
-		return userRepository.findBy_id(id);
-	}
 }

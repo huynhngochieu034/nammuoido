@@ -1,8 +1,8 @@
 package com.noname.awn.enums;
 
 public enum ERole {
-  OPERATOR,
-  COMPANY,
-  PERSON,
-  ADMINISTRATOR;
+	ROLE_USER,
+	ROLE_ADMIN,
+	ROLE_COMPANY,
+	ROLE_OPERATOR;
 }
