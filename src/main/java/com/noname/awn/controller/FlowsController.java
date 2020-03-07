@@ -21,7 +21,8 @@ import com.noname.awn.dto.FlowsDTO;
 import com.noname.awn.model.Flows;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.FlowsRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/flows")
@@ -52,6 +53,7 @@ public class FlowsController {
 		Users user = userRepository.findBy_id(flowsDTO.getId_user());
 		Flows flows = flowsConverter.convertToEntity(flowsDTO);
 		flows.setUser(user);
+		flows.setLogs(LogsUtils.getListLogs(flowsDTO.getLogs()));
 		flows.set_id(id);
 		repository.save(flows);
 		return flows;
@@ -64,6 +66,7 @@ public class FlowsController {
 		Users user = userRepository.findBy_id(flowsDTO.getId_user());
 		Flows flows = flowsConverter.convertToEntity(flowsDTO);
 		flows.setUser(user);
+		flows.setLogs(LogsUtils.getListLogs(flowsDTO.getLogs()));
 		repository.save(flows);
 		return flows;
 	}

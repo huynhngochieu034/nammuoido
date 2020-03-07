@@ -21,7 +21,8 @@ import com.noname.awn.dto.DevicesDTO;
 import com.noname.awn.model.Devices;
 import com.noname.awn.model.Seats;
 import com.noname.awn.repository.DevicesRepository;
-import com.noname.awn.repository.SeatsRepository;;
+import com.noname.awn.repository.SeatsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/devices")
@@ -52,6 +53,7 @@ public class DevicesController {
 		Seats seats = seatsRepository.findBy_id(devicesDTO.getId_seat());
 		Devices devices = devicesConverter.convertToEntity(devicesDTO);
 		devices.setSeats(seats);
+		devices.setLogs(LogsUtils.getListLogs(devicesDTO.getLogs()));
 		devices.set_id(id);
 		repository.save(devices);
 		return devices;
@@ -64,6 +66,7 @@ public class DevicesController {
 		Seats seats = seatsRepository.findBy_id(devicesDTO.getId_seat());
 		Devices devices = devicesConverter.convertToEntity(devicesDTO);
 		devices.setSeats(seats);
+		devices.setLogs(LogsUtils.getListLogs(devicesDTO.getLogs()));
 		repository.save(devices);
 		return devices;
 	}

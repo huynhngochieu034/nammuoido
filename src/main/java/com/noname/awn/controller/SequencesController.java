@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.noname.awn.converter.SequencesConverter;
+import com.noname.awn.dto.SequencesDTO;
 import com.noname.awn.model.Sequences;
-import com.noname.awn.repository.SequencesRepository;;
+import com.noname.awn.repository.SequencesRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/sequences")
@@ -25,6 +28,9 @@ public class SequencesController {
 
 	@Autowired
 	private SequencesRepository repository;
+	
+	@Autowired
+	private SequencesConverter sequencesConverter;
 	
 	@GetMapping("/")
 	public List<Sequences> getUsers() {
@@ -38,7 +44,9 @@ public class SequencesController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public Sequences updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody Sequences sequences) {
+	public Sequences updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody SequencesDTO sequencesDTO) {
+		Sequences sequences = sequencesConverter.convertToEntity(sequencesDTO);
+		sequences.setLogs(LogsUtils.getListLogs(sequencesDTO.getLogs()));
 		sequences.set_id(id);
 		repository.save(sequences);
 		return sequences;
@@ -46,8 +54,10 @@ public class SequencesController {
 
 	@PostMapping("/")
 	@Transactional
-	public Sequences createUsers(@Valid @RequestBody Sequences sequences) {
-		sequences.set_id(ObjectId.get());
+	public Sequences createUsers(@Valid @RequestBody SequencesDTO sequencesDTO) {
+		sequencesDTO.set_id(ObjectId.get());
+		Sequences sequences = sequencesConverter.convertToEntity(sequencesDTO);
+		sequences.setLogs(LogsUtils.getListLogs(sequencesDTO.getLogs()));
 		repository.save(sequences);
 		return sequences;
 	}

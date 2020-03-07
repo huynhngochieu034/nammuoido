@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.noname.awn.converter.CustomersConverter;
+import com.noname.awn.dto.CustomersDTO;
 import com.noname.awn.model.Customers;
-import com.noname.awn.repository.CustomersRepository;;
+import com.noname.awn.repository.CustomersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/customers")
@@ -25,6 +28,9 @@ public class CustomersController {
 
 	@Autowired
 	private CustomersRepository repository;
+	
+	@Autowired
+	private CustomersConverter customersConverter;
 	
 	@GetMapping("/")
 	public List<Customers> getUsers() {
@@ -38,18 +44,22 @@ public class CustomersController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public Customers updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody Customers user) {
-		user.set_id(id);
-		repository.save(user);
-		return user;
+	public Customers updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody CustomersDTO customersDTO) {
+		customersDTO.set_id(id);
+		Customers customers = customersConverter.convertToEntity(customersDTO);
+		customers.setLogs(LogsUtils.getListLogs(customersDTO.getLogs()));
+		repository.save(customers);
+		return customers;
 	}
 
 	@PostMapping("/")
 	@Transactional
-	public Customers createUsers(@Valid @RequestBody Customers users) {
-		users.set_id(ObjectId.get());
-		repository.save(users);
-		return users;
+	public Customers createUsers(@Valid @RequestBody CustomersDTO customersDTO) {
+		customersDTO.set_id(ObjectId.get());
+		Customers customers = customersConverter.convertToEntity(customersDTO);
+		customers.setLogs(LogsUtils.getListLogs(customersDTO.getLogs()));
+		repository.save(customers);
+		return customers;
 	}
 
 	@DeleteMapping("/{id}")

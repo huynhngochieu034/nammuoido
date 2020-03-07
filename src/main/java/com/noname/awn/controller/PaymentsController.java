@@ -21,7 +21,8 @@ import com.noname.awn.dto.PaymentsDTO;
 import com.noname.awn.model.Payments;
 import com.noname.awn.model.Wallets;
 import com.noname.awn.repository.PaymentsRepository;
-import com.noname.awn.repository.WalletsRepository;;
+import com.noname.awn.repository.WalletsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/payments")
@@ -52,6 +53,7 @@ public class PaymentsController {
 		Wallets wallets = walletsRepository.findBy_id(paymentsDTO.getId_wallet());
 		Payments payments = paymentsConverter.convertToEntity(paymentsDTO);
 		payments.setWallets(wallets);
+		payments.setLogs(LogsUtils.getListLogs(paymentsDTO.getLogs()));
 		payments.set_id(id);
 		repository.save(payments);
 		return payments;
@@ -64,6 +66,7 @@ public class PaymentsController {
 		Wallets wallets = walletsRepository.findBy_id(paymentsDTO.getId_wallet());
 		Payments payments = paymentsConverter.convertToEntity(paymentsDTO);
 		payments.setWallets(wallets);
+		payments.setLogs(LogsUtils.getListLogs(paymentsDTO.getLogs()));
 		repository.save(payments);
 		return payments;
 	}

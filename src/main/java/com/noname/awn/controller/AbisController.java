@@ -21,7 +21,8 @@ import com.noname.awn.dto.AbisDTO;
 import com.noname.awn.model.Abis;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.AbisRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/abis")
@@ -53,6 +54,7 @@ public class AbisController {
 		Users user = userRepository.findBy_id(abisDTO.getId_user());
 		Abis abis = abisConverter.convertToEntity(abisDTO);
 		abis.setUser(user);
+		abis.setLogs(LogsUtils.getListLogs(abisDTO.getLogs()));
 		abis.set_id(id);
 		repository.save(abis);
 		return abis;
@@ -64,6 +66,7 @@ public class AbisController {
 		abisDTO.set_id(ObjectId.get());
 		Users user = userRepository.findBy_id(abisDTO.getId_user());
 		Abis abis = abisConverter.convertToEntity(abisDTO);
+		abis.setLogs(LogsUtils.getListLogs(abisDTO.getLogs()));
 		abis.setUser(user);
 		repository.save(abis);
 		return abis;

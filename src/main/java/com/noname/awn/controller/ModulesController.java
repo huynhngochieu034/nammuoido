@@ -21,7 +21,8 @@ import com.noname.awn.dto.ModulesDTO;
 import com.noname.awn.model.Modules;
 import com.noname.awn.model.Subscriptions;
 import com.noname.awn.repository.ModulesRepository;
-import com.noname.awn.repository.SubscriptionsRepository;;
+import com.noname.awn.repository.SubscriptionsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/modules")
@@ -52,6 +53,7 @@ public class ModulesController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(modulesDTO.getId_subscription());
 		Modules modules = modulesConverter.convertToEntity(modulesDTO);
 		modules.setSubscriptions(subscriptions);
+		modules.setLogs(LogsUtils.getListLogs(modulesDTO.getLogs()));
 		modules.set_id(id);
 		repository.save(modules);
 		return modules;
@@ -64,6 +66,7 @@ public class ModulesController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(modulesDTO.getId_subscription());
 		Modules modules = modulesConverter.convertToEntity(modulesDTO);
 		modules.setSubscriptions(subscriptions);
+		modules.setLogs(LogsUtils.getListLogs(modulesDTO.getLogs()));
 		repository.save(modules);
 		return modules;
 	}

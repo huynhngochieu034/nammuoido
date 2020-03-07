@@ -21,7 +21,8 @@ import com.noname.awn.dto.LimitsDTO;
 import com.noname.awn.model.Limits;
 import com.noname.awn.model.Subscriptions;
 import com.noname.awn.repository.LimitsRepository;
-import com.noname.awn.repository.SubscriptionsRepository;;
+import com.noname.awn.repository.SubscriptionsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/limits")
@@ -52,6 +53,7 @@ public class LimitsController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(limitsDTO.getId_subscription());
 		Limits limits = limitsConverter.convertToEntity(limitsDTO);
 		limits.setSubscriptions(subscriptions);
+		limits.setLogs(LogsUtils.getListLogs(limitsDTO.getLogs()));
 		limits.set_id(id);
 		repository.save(limits);
 		return limits;
@@ -64,6 +66,7 @@ public class LimitsController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(limitsDTO.getId_subscription());
 		Limits limits = limitsConverter.convertToEntity(limitsDTO);
 		limits.setSubscriptions(subscriptions);
+		limits.setLogs(LogsUtils.getListLogs(limitsDTO.getLogs()));
 		repository.save(limits);
 		return limits;
 	}

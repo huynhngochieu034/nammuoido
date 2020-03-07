@@ -27,7 +27,8 @@ import com.noname.awn.repository.AbisRepository;
 import com.noname.awn.repository.DocumentsRepository;
 import com.noname.awn.repository.LogsRepository;
 import com.noname.awn.repository.NotarizationsRepository;
-import com.noname.awn.repository.OperationsRepository;;
+import com.noname.awn.repository.OperationsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/notarizations")
@@ -74,6 +75,7 @@ public class NotarizationsController {
 		notarizations.setDocuments(documents);
 		notarizations.setOperations(operations);
 		notarizations.setLogss(logs);
+		notarizations.setLogs(LogsUtils.getListLogs(notarizationsDTO.getLogs()));
 		abis.set_id(id);
 		repository.save(notarizations);
 		return notarizations;
@@ -92,6 +94,7 @@ public class NotarizationsController {
 		notarizations.setDocuments(documents);
 		notarizations.setOperations(operations);
 		notarizations.setLogss(logs);
+		notarizations.setLogs(LogsUtils.getListLogs(notarizationsDTO.getLogs()));
 		repository.save(notarizations);
 		return notarizations;
 	}

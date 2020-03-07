@@ -21,7 +21,8 @@ import com.noname.awn.dto.WalletsDTO;
 import com.noname.awn.model.Customers;
 import com.noname.awn.model.Wallets;
 import com.noname.awn.repository.CustomersRepository;
-import com.noname.awn.repository.WalletsRepository;;
+import com.noname.awn.repository.WalletsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/wallets")
@@ -53,6 +54,7 @@ public class WalletsController {
 		Wallets wallets = walletsConverter.convertToEntity(walletsDTO);
 		wallets.setCustomer(customer);
 		wallets.set_id(id);
+		wallets.setLogs(LogsUtils.getListLogs(walletsDTO.getLogs()));
 		repository.save(wallets);
 		return wallets;
 	}
@@ -64,6 +66,7 @@ public class WalletsController {
 		Customers customer = customersRepository.findBy_id(walletsDTO.getId_customer());
 		Wallets wallets = walletsConverter.convertToEntity(walletsDTO);
 		wallets.setCustomer(customer);
+		wallets.setLogs(LogsUtils.getListLogs(walletsDTO.getLogs()));
 		repository.save(wallets);
 		return wallets;
 	}
@@ -74,5 +77,7 @@ public class WalletsController {
 		repository.delete(repository.findBy_id(id));
 		return "Delete success";
 	}
+	
+	
 
 }

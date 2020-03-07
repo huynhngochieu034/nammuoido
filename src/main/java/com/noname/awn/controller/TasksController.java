@@ -23,7 +23,8 @@ import com.noname.awn.model.Tasks;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.SequencesRepository;
 import com.noname.awn.repository.TasksRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/tasks")
@@ -59,6 +60,7 @@ public class TasksController {
 		Tasks tasks = tasksConverter.convertToEntity(tasksDTO);
 		tasks.setUser(user);
 		tasks.setSequences(sequences);
+		tasks.setLogs(LogsUtils.getListLogs(tasksDTO.getLogs()));
 		tasks.set_id(id);
 		repository.save(tasks);
 		return tasks;
@@ -73,6 +75,7 @@ public class TasksController {
 		Tasks tasks = tasksConverter.convertToEntity(tasksDTO);
 		tasks.setUser(user);
 		tasks.setSequences(sequences);
+		tasks.setLogs(LogsUtils.getListLogs(tasksDTO.getLogs()));
 		repository.save(tasks);
 		return tasks;
 	}

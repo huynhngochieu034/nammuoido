@@ -23,7 +23,8 @@ import com.noname.awn.model.Templates;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.DocumentsRepository;
 import com.noname.awn.repository.TemplatesRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/templates")
@@ -60,6 +61,7 @@ public class TemplatesController {
 		templates.setDocument(documents);
 		templates.setUsers(users);
 		templates.set_id(id);
+		templates.setLogs(LogsUtils.getListLogs(templatesDTO.getLogs()));
 		repository.save(templates);
 		return templates;
 	}
@@ -73,6 +75,7 @@ public class TemplatesController {
 		Templates templates = templatesConverter.convertToEntity(templatesDTO);
 		templates.setDocument(documents);
 		templates.setUsers(users);
+		templates.setLogs(LogsUtils.getListLogs(templatesDTO.getLogs()));
 		repository.save(templates);
 		return templates;
 	}

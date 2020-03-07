@@ -21,7 +21,8 @@ import com.noname.awn.dto.NotificationsDTO;
 import com.noname.awn.model.Notifications;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.NotificationsRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/notifications")
@@ -54,6 +55,7 @@ public class NotificationsController {
 		Notifications notifications = notificationsConverter.convertToEntity(notificationsDTO);
 		notifications.setUser_sender(user_sender);
 		notifications.setUser_receiver(user_receiver);
+		notifications.setLogs(LogsUtils.getListLogs(notificationsDTO.getLogs()));
 		notifications.set_id(id);
 		repository.save(notifications);
 		return notifications;
@@ -68,6 +70,7 @@ public class NotificationsController {
 		Notifications notifications = notificationsConverter.convertToEntity(notificationsDTO);
 		notifications.setUser_sender(user_sender);
 		notifications.setUser_receiver(user_receiver);
+		notifications.setLogs(LogsUtils.getListLogs(notificationsDTO.getLogs()));
 		repository.save(notifications);
 		return notifications;
 	}

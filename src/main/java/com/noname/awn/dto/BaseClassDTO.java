@@ -5,15 +5,13 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.noname.awn.model.Logs;
-
 public class BaseClassDTO {
 
 	public ObjectId _id;
 	private boolean hidden;
 	private boolean verified;
 	private String notes;
-	private List<Logs> logs = new ArrayList<>();
+	private List<ObjectId> logs = new ArrayList<>();
 	
 	public boolean isHidden() {
 		return hidden;
@@ -39,10 +37,10 @@ public class BaseClassDTO {
 	public void set_id(ObjectId _id) {
 		this._id = _id;
 	}
-	public List<Logs> getLogs() {
+	public List<ObjectId> getLogs() {
 		return logs;
 	}
-	public void setLogs(List<Logs> logs) {
+	public void setLogs(List<ObjectId> logs) {
 		this.logs = logs;
 	}
 }

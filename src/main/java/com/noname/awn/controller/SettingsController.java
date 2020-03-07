@@ -21,7 +21,8 @@ import com.noname.awn.dto.SettingsDTO;
 import com.noname.awn.model.Settings;
 import com.noname.awn.model.Subscriptions;
 import com.noname.awn.repository.SettingsRepository;
-import com.noname.awn.repository.SubscriptionsRepository;;
+import com.noname.awn.repository.SubscriptionsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/settings")
@@ -52,6 +53,7 @@ public class SettingsController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(settingsDTO.getId_subscription());
 		Settings settings = settingsConverter.convertToEntity(settingsDTO);
 		settings.setSubscriptions(subscriptions);
+		settings.setLogs(LogsUtils.getListLogs(settingsDTO.getLogs()));
 		settings.set_id(id);
 		repository.save(settings);
 		return settings;

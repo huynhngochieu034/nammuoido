@@ -21,7 +21,8 @@ import com.noname.awn.dto.InfosDTO;
 import com.noname.awn.model.Infos;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.InfosRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/infos")
@@ -52,6 +53,7 @@ public class InfosController {
 		Users user = userRepository.findBy_id(infosDTO.getId_user());
 		Infos infos = infosConverter.convertToEntity(infosDTO);
 		infos.setUser(user);
+		infos.setLogs(LogsUtils.getListLogs(infosDTO.getLogs()));
 		infos.set_id(id);
 		repository.save(infos);
 		return infos;
@@ -64,6 +66,7 @@ public class InfosController {
 		Users user = userRepository.findBy_id(infosDTO.getId_user());
 		Infos infos = infosConverter.convertToEntity(infosDTO);
 		infos.setUser(user);
+		infos.setLogs(LogsUtils.getListLogs(infosDTO.getLogs()));
 		repository.save(infos);
 		return infos;
 	}

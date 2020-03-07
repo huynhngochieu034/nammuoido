@@ -21,7 +21,9 @@ import com.noname.awn.dto.PresetsDTO;
 import com.noname.awn.model.Presets;
 import com.noname.awn.model.Subscriptions;
 import com.noname.awn.repository.PresetsRepository;
-import com.noname.awn.repository.SubscriptionsRepository;;
+import com.noname.awn.repository.SubscriptionsRepository;
+import com.noname.awn.util.DevicesUtils;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/presets")
@@ -52,6 +54,8 @@ public class PresetsController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(presetsDTO.getId_subscription());
 		Presets presets = presetsConverter.convertToEntity(presetsDTO);
 		presets.setSubscriptions(subscriptions);
+		presets.setLogs(LogsUtils.getListLogs(presetsDTO.getLogs()));
+		presets.setDevices(DevicesUtils.getListDevices(presetsDTO.getLogs()));
 		presets.set_id(id);
 		repository.save(presets);
 		return presets;
@@ -64,6 +68,8 @@ public class PresetsController {
 		Subscriptions subscriptions = subscriptionsRepository.findBy_id(presetsDTO.getId_subscription());
 		Presets presets = presetsConverter.convertToEntity(presetsDTO);
 		presets.setSubscriptions(subscriptions);
+		presets.setLogs(LogsUtils.getListLogs(presetsDTO.getLogs()));
+		presets.setDevices(DevicesUtils.getListDevices(presetsDTO.getLogs()));
 		repository.save(presets);
 		return presets;
 	}

@@ -21,7 +21,8 @@ import com.noname.awn.dto.StepsDTO;
 import com.noname.awn.model.Sequences;
 import com.noname.awn.model.Steps;
 import com.noname.awn.repository.SequencesRepository;
-import com.noname.awn.repository.StepsRepository;;
+import com.noname.awn.repository.StepsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/steps")
@@ -52,6 +53,7 @@ public class StepsController {
 		Sequences sequences = sequencesRepository.findBy_id(stepsDTO.getId_sequence());
 		Steps steps = stepsConverter.convertToEntity(stepsDTO);
 		steps.setSequences(sequences);
+		steps.setLogs(LogsUtils.getListLogs(stepsDTO.getLogs()));
 		steps.set_id(id);
 		repository.save(steps);
 		return steps;
@@ -64,6 +66,7 @@ public class StepsController {
 		Sequences sequences = sequencesRepository.findBy_id(stepsDTO.getId_sequence());
 		Steps steps = stepsConverter.convertToEntity(stepsDTO);
 		steps.setSequences(sequences);
+		steps.setLogs(LogsUtils.getListLogs(stepsDTO.getLogs()));
 		repository.save(steps);
 		return steps;
 	}

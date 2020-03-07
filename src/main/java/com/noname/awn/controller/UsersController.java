@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +29,9 @@ public class UsersController {
 	@Autowired
 	private UsersRepository repository;
 	
+	@Autowired
+	private PasswordEncoder encoder;
+	
 	@GetMapping("/")
 	public List<Users> getUsers() {
 		return repository.findAll();
@@ -43,6 +46,7 @@ public class UsersController {
 	@Transactional
 	public Users updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody Users user) {
 		user.set_id(id);
+		user.setPassword(encoder.encode(user.getPassword()));
 		repository.save(user);
 		return user;
 	}
@@ -51,6 +55,7 @@ public class UsersController {
 	@Transactional
 	public Users createUsers(@Valid @RequestBody Users users) {
 		users.set_id(ObjectId.get());
+		users.setPassword(encoder.encode(users.getPassword()));
 		repository.save(users);
 		return users;
 	}

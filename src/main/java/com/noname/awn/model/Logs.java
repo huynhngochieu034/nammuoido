@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noname.awn.enums.StatusType;
 import com.noname.awn.enums.Logs.LogsType;
 
@@ -105,7 +106,10 @@ public class Logs {
 	private String imei;
 	private String ip;
 	private String mac;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
 	private int sid;
 	private String gps;
 	

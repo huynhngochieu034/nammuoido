@@ -21,7 +21,8 @@ import com.noname.awn.dto.OperationsDTO;
 import com.noname.awn.model.Operations;
 import com.noname.awn.model.Sequences;
 import com.noname.awn.repository.OperationsRepository;
-import com.noname.awn.repository.SequencesRepository;;
+import com.noname.awn.repository.SequencesRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/operations")
@@ -52,6 +53,7 @@ public class OperationsController {
 		Sequences sequences = sequencesRepository.findBy_id(operationsDTO.getId_sequence());
 		Operations operations = operationsConverter.convertToEntity(operationsDTO);
 		operations.setSequences(sequences);
+		operations.setLogs(LogsUtils.getListLogs(operationsDTO.getLogs()));
 		operations.set_id(id);
 		repository.save(operations);
 		return operations;
@@ -64,6 +66,7 @@ public class OperationsController {
 		Sequences sequences = sequencesRepository.findBy_id(operationsDTO.getId_sequence());
 		Operations operations = operationsConverter.convertToEntity(operationsDTO);
 		operations.setSequences(sequences);
+		operations.setLogs(LogsUtils.getListLogs(operationsDTO.getLogs()));
 		repository.save(operations);
 		return operations;
 	}

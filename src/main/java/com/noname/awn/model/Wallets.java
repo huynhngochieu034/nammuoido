@@ -10,7 +10,7 @@ public class Wallets extends BaseClass {
 	
 	@DBRef
 	private Customers customer;
-	
+
 	private String name;
 	private String description;
 	private String amount;

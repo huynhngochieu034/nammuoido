@@ -21,7 +21,8 @@ import com.noname.awn.dto.StatusDTO;
 import com.noname.awn.model.Logs;
 import com.noname.awn.model.Status;
 import com.noname.awn.repository.LogsRepository;
-import com.noname.awn.repository.StatusRepository;;
+import com.noname.awn.repository.StatusRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/status")
@@ -52,6 +53,7 @@ public class StatusController {
 		Logs logs = logsRepository.findBy_id(statusDTO.getId_log());
 		Status status = statusConverter.convertToEntity(statusDTO);
 		status.setLogss(logs);
+		status.setLogs(LogsUtils.getListLogs(statusDTO.getLogs()));
 		status.set_id(id);
 		repository.save(status);
 		return status;
@@ -64,6 +66,7 @@ public class StatusController {
 		Logs logs = logsRepository.findBy_id(statusDTO.getId_log());
 		Status status = statusConverter.convertToEntity(statusDTO);
 		status.setLogss(logs);
+		status.setLogs(LogsUtils.getListLogs(statusDTO.getLogs()));
 		repository.save(status);
 		return status;
 	}

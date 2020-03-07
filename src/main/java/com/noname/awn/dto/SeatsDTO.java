@@ -6,15 +6,15 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noname.awn.enums.StatusType;
 import com.noname.awn.enums.TypeEnumSeat;
-import com.noname.awn.model.Devices;
 
 public class SeatsDTO extends BaseClassDTO {
 	
 	private ObjectId id_user;
 	private ObjectId id_licence;
-	private List<Devices> devices= new ArrayList<>();
+	private List<ObjectId> devices= new ArrayList<>();
 	private String name;
 	private String description;
 	private TypeEnumSeat type;
@@ -22,7 +22,10 @@ public class SeatsDTO extends BaseClassDTO {
 	private String imei;
 	private String ip;
 	private String mac;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
 	private String gps;
 	private StatusType status;
 	public ObjectId getId_user() {
@@ -91,15 +94,11 @@ public class SeatsDTO extends BaseClassDTO {
 	public void setStatus(StatusType status) {
 		this.status = status;
 	}
-	public List<Devices> getDevices() {
+	public List<ObjectId> getDevices() {
 		return devices;
 	}
-	public void setDevices(List<Devices> devices) {
+	public void setDevices(List<ObjectId> devices) {
 		this.devices = devices;
 	}
-	
-	
-	
-	
 	
 }

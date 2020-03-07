@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noname.awn.enums.StatusType;
 import com.noname.awn.enums.Documents.DocumentFileType;
 
@@ -16,9 +17,12 @@ public class Documents extends BaseClass {
 	private String name;
 	private String description;
 	private String metadata;
-	private DocumentFileType file_type;
+	private DocumentFileType extension;
 	private String editor;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date date;
+	
 	private boolean signed;
 	private boolean notarized;
 	private boolean encrypted;
@@ -47,12 +51,6 @@ public class Documents extends BaseClass {
 		this.metadata = metadata;
 	}
 	
-	public DocumentFileType getFile_type() {
-		return file_type;
-	}
-	public void setFile_type(DocumentFileType file_type) {
-		this.file_type = file_type;
-	}
 	public String getEditor() {
 		return editor;
 	}
@@ -119,6 +117,12 @@ public class Documents extends BaseClass {
 	}
 	public void setUser(Users user) {
 		this.user = user;
+	}
+	public DocumentFileType getExtension() {
+		return extension;
+	}
+	public void setExtension(DocumentFileType extension) {
+		this.extension = extension;
 	}
 	
 	

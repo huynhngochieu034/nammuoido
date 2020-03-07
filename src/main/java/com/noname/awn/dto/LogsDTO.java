@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noname.awn.enums.StatusType;
 import com.noname.awn.enums.Logs.LogsType;
 
@@ -47,7 +48,10 @@ public class LogsDTO {
 	private String imei;
 	private String ip;
 	private String mac;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
 	private int sid;
 	private String gps;
 	private boolean hidden;

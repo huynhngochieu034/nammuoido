@@ -6,12 +6,11 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.noname.awn.enums.StatusType;
-import com.noname.awn.model.Devices;
 
 public class PresetsDTO extends BaseClassDTO {
 	
 	private ObjectId id_subscription;
-	private List<Devices> devices = new ArrayList<>();
+	private List<ObjectId> devices = new ArrayList<>();
 	private String name;
 	private String description;
 	private List<String> parameters = new ArrayList<>();
@@ -46,13 +45,11 @@ public class PresetsDTO extends BaseClassDTO {
 	public void setStatus(StatusType status) {
 		this.status = status;
 	}
-	public List<Devices> getDevices() {
+	public List<ObjectId> getDevices() {
 		return devices;
 	}
-	public void setDevices(List<Devices> devices) {
+	public void setDevices(List<ObjectId> devices) {
 		this.devices = devices;
 	}
-	
-	
 	
 }

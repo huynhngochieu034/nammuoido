@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.noname.awn.converter.LicencesConverter;
+import com.noname.awn.dto.LicencesDTO;
 import com.noname.awn.model.Licences;
-import com.noname.awn.repository.LicencesRepository;;
+import com.noname.awn.repository.LicencesRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/licences")
@@ -25,6 +28,9 @@ public class LicencesController {
 
 	@Autowired
 	private LicencesRepository repository;
+	
+	@Autowired
+	private LicencesConverter licencesConverter;
 	
 	@GetMapping("/")
 	public List<Licences> getUsers() {
@@ -38,18 +44,22 @@ public class LicencesController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public Licences updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody Licences user) {
-		user.set_id(id);
-		repository.save(user);
-		return user;
+	public Licences updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody LicencesDTO licencesDTO) {
+		Licences licences = licencesConverter.convertToEntity(licencesDTO);
+		licences.setLogs(LogsUtils.getListLogs(licencesDTO.getLogs()));
+		licences.set_id(id);
+		repository.save(licences);
+		return licences;
 	}
 
 	@PostMapping("/")
 	@Transactional
-	public Licences createUsers(@Valid @RequestBody Licences users) {
-		users.set_id(ObjectId.get());
-		repository.save(users);
-		return users;
+	public Licences createUsers(@Valid @RequestBody LicencesDTO licencesDTO) {
+		licencesDTO.set_id(ObjectId.get());
+		Licences licences = licencesConverter.convertToEntity(licencesDTO);
+		licences.setLogs(LogsUtils.getListLogs(licencesDTO.getLogs()));
+		repository.save(licences);
+		return licences;
 	}
 
 	@DeleteMapping("/{id}")

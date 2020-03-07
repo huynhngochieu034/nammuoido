@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.noname.awn.converter.CertificatorsConverter;
+import com.noname.awn.dto.CertificatorsDTO;
 import com.noname.awn.model.Certificators;
-import com.noname.awn.repository.CertificatorsRepository;;
+import com.noname.awn.repository.CertificatorsRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/certificators")
@@ -25,6 +28,9 @@ public class CertificatorsController {
 
 	@Autowired
 	private CertificatorsRepository repository;
+	
+	@Autowired
+	private CertificatorsConverter certificatorsConverter;
 	
 	@GetMapping("/")
 	public List<Certificators> getUsers() {
@@ -38,16 +44,20 @@ public class CertificatorsController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public Certificators updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody Certificators certificators) {
-		certificators.set_id(id);
+	public Certificators updateUsers(@PathVariable("id") ObjectId id, @Valid @RequestBody CertificatorsDTO certificatorsDTO) {
+		certificatorsDTO.set_id(id);
+		Certificators certificators = certificatorsConverter.convertToEntity(certificatorsDTO);
+		certificators.setLogs(LogsUtils.getListLogs(certificatorsDTO.getLogs()));
 		repository.save(certificators);
 		return certificators;
 	}
 
 	@PostMapping("/")
 	@Transactional
-	public Certificators createUsers(@Valid @RequestBody Certificators certificators) {
-		certificators.set_id(ObjectId.get());
+	public Certificators createUsers(@Valid @RequestBody CertificatorsDTO certificatorsDTO) {
+		certificatorsDTO.set_id(ObjectId.get());
+		Certificators certificators = certificatorsConverter.convertToEntity(certificatorsDTO);
+		certificators.setLogs(LogsUtils.getListLogs(certificatorsDTO.getLogs()));
 		repository.save(certificators);
 		return certificators;
 	}

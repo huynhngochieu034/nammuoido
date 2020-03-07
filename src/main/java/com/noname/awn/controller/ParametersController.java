@@ -21,7 +21,8 @@ import com.noname.awn.dto.ParametersDTO;
 import com.noname.awn.model.Parameters;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.ParametersRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/parameters")
@@ -53,6 +54,7 @@ public class ParametersController {
 		Users user = userRepository.findBy_id(parametersDTO.getId_user());
 		Parameters parameters = parametersConverter.convertToEntity(parametersDTO);
 		parameters.setUsers(user);
+		parameters.setLogs(LogsUtils.getListLogs(parametersDTO.getLogs()));
 		parameters.set_id(id);
 		repository.save(parameters);
 		return parameters;
@@ -65,11 +67,13 @@ public class ParametersController {
 		Users user = userRepository.findBy_id(parametersDTO.getId_user());
 		Parameters parameters = parametersConverter.convertToEntity(parametersDTO);
 		parameters.setUsers(user);
+		parameters.setLogs(LogsUtils.getListLogs(parametersDTO.getLogs()));
 		repository.save(parameters);
 		return parameters;
 	}
 
 	@DeleteMapping("/{id}")
+	
 	@Transactional
 	public String deleteAbis(@PathVariable ObjectId id) {
 		repository.delete(repository.findBy_id(id));

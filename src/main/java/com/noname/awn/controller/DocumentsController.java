@@ -21,7 +21,8 @@ import com.noname.awn.dto.DocumentsDTO;
 import com.noname.awn.model.Documents;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.DocumentsRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/documents")
@@ -52,6 +53,7 @@ public class DocumentsController {
 		Users user = userRepository.findBy_id(documentsDTO.getId_user());
 		Documents documents = documentsConverter.convertToEntity(documentsDTO);
 		documents.setUser(user);
+		documents.setLogs(LogsUtils.getListLogs(documentsDTO.getLogs()));
 		documents.set_id(id);
 		repository.save(documents);
 		return documents;
@@ -64,6 +66,7 @@ public class DocumentsController {
 		Users user = userRepository.findBy_id(documentsDTO.getId_user());
 		Documents documents = documentsConverter.convertToEntity(documentsDTO);
 		documents.setUser(user);
+		documents.setLogs(LogsUtils.getListLogs(documentsDTO.getLogs()));
 		repository.save(documents);
 		return documents;
 	}

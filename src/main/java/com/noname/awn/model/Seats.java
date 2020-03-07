@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noname.awn.enums.StatusType;
 import com.noname.awn.enums.TypeEnumSeat;
 
@@ -28,7 +29,10 @@ public class Seats extends BaseClass {
 	private String imei;
 	private String ip;
 	private String mac;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time;
+	
 	private String gps;
 	private StatusType status;
 

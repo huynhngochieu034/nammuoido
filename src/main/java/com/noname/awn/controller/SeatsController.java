@@ -23,7 +23,9 @@ import com.noname.awn.model.Seats;
 import com.noname.awn.model.Users;
 import com.noname.awn.repository.LicencesRepository;
 import com.noname.awn.repository.SeatsRepository;
-import com.noname.awn.repository.UsersRepository;;
+import com.noname.awn.repository.UsersRepository;
+import com.noname.awn.util.DevicesUtils;
+import com.noname.awn.util.LogsUtils;;
 
 @RestController
 @RequestMapping(value = "/api/seats")
@@ -59,6 +61,8 @@ public class SeatsController {
 		Seats seats = seatsConverter.convertToEntity(seatsDTO);
 		seats.setLicences(licences);
 		seats.setUsers(users);
+		seats.setLogs(LogsUtils.getListLogs(seatsDTO.getLogs()));
+		seats.setDevices(DevicesUtils.getListDevices(seatsDTO.getLogs()));
 		seats.set_id(id);
 		repository.save(seats);
 		return seats;
@@ -73,6 +77,8 @@ public class SeatsController {
 		Seats seats = seatsConverter.convertToEntity(seatsDTO);
 		seats.setLicences(licences);
 		seats.setUsers(users);
+		seats.setLogs(LogsUtils.getListLogs(seatsDTO.getLogs()));
+		seats.setDevices(DevicesUtils.getListDevices(seatsDTO.getLogs()));
 		repository.save(seats);
 		return seats;
 	}
